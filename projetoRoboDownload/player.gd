@@ -29,7 +29,7 @@ var anim = ""
 var siding_left = false
 var jumping = false
 var stopping_jump = false
-var shooting = false
+var lasering = false
 var has_mola = false
 
 var WALK_ACCEL = 800.0
@@ -70,6 +70,7 @@ func _integrate_forces(s):
 	var move_right = Input.is_action_pressed("move_right")
 	var jump = Input.is_action_pressed("jump")
 	var spawn = Input.is_action_pressed("spawn")
+	var laser = Input.is_action_just_pressed("shoot")
 	
 	if spawn:
 		var e = enemy.instance()
@@ -81,6 +82,29 @@ func _integrate_forces(s):
 	# Deapply prev floor velocity
 	lv.x -= floor_h_velocity
 	floor_h_velocity = 0.0
+	
+	if laser and not lasering:
+		shoot_time = 0
+		var bi = bullet.instance()
+		var ss
+		if siding_left:
+			ss = -1.0
+		else:
+			ss = 1.0
+		var pos = position + $bullet_shoot.position * Vector2(ss, 1.0)
+		
+		bi.position = pos
+		get_parent().add_child(bi)
+		
+		bi.linear_velocity = Vector2(800.0 * ss, -80)
+		
+		$sprite/smoke.restart()
+		$sound_shoot.play()
+		
+		add_collision_exception_with(bi) # Make bullet and this not collide
+	else:
+		shoot_time += step
+	
 	
 	# Find the floor (a contact with upwards facing collision normal)
 	var found_floor = false
@@ -146,7 +170,7 @@ func _integrate_forces(s):
 		# Check jump
 		if not jumping and jump:
 			if has_mola:
-				lv.y = -JUMP_VELOCITY * 1.5
+				lv.y = -JUMP_VELOCITY * 1.2
 			else:
 				lv.y = -JUMP_VELOCITY
 			jumping = true
