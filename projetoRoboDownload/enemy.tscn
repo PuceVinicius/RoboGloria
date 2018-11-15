@@ -17,6 +17,7 @@ tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -28,6 +29,7 @@ tracks/1/path = NodePath("Particles2D:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 3.47394 ),
 "transitions": PoolRealArray( 1 ),
@@ -39,6 +41,7 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 3.20357, 5.07305 ),
 "transitions": PoolRealArray( 1, 1 ),
@@ -55,6 +58,7 @@ tracks/3/path = NodePath("sprite:self_modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 3.55, 4.32 ),
 "transitions": PoolRealArray( 1, 1 ),
@@ -72,6 +76,7 @@ tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.75, 1.5, 2.25, 3, 3.75, 4.5, 5.25, 6, 6.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
@@ -90,6 +95,7 @@ tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.25, 0.5, 0.75, 1, 1.25 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
@@ -109,6 +115,7 @@ colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.915254, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=6]
 
+flags = 4
 gradient = SubResource( 5 )
 width = 2048
 
@@ -173,7 +180,7 @@ angular_velocity = 0.0
 angular_damp = -1.0
 script = ExtResource( 1 )
 
-[node name="enabler" type="VisibilityEnabler2D" parent="."]
+[node name="enabler" type="VisibilityEnabler2D" parent="." index="0"]
 
 position = Vector2( 16.2569, 11.0034 )
 scale = Vector2( 23.5056, 10.8629 )
@@ -185,59 +192,56 @@ pause_animated_sprites = true
 process_parent = false
 physics_process_parent = false
 
-[node name="anim" type="AnimationPlayer" parent="."]
+[node name="anim" type="AnimationPlayer" parent="." index="1"]
 
+root_node = NodePath("..")
+autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
-root_node = NodePath("..")
+playback_speed = 1.0
 anims/explode = SubResource( 1 )
 anims/idle = SubResource( 2 )
 anims/walk = SubResource( 3 )
-playback/active = true
-playback/speed = 3.0
 blend_times = [  ]
-autoplay = ""
 
-[node name="sprite" type="Sprite" parent="."]
+[node name="sprite" type="Sprite" parent="." index="2"]
 
 texture = ExtResource( 2 )
 hframes = 8
 frame = 4
 
-[node name="shape1" type="CollisionShape2D" parent="."]
+[node name="shape1" type="CollisionShape2D" parent="." index="3"]
 
 position = Vector2( -1.08072, -2.16144 )
 shape = SubResource( 4 )
 
-[node name="shape2" type="CollisionShape2D" parent="."]
+[node name="shape2" type="CollisionShape2D" parent="." index="4"]
 
 position = Vector2( 6.48431, 3.24216 )
 shape = SubResource( 4 )
 
-[node name="shape3" type="CollisionShape2D" parent="."]
+[node name="shape3" type="CollisionShape2D" parent="." index="5"]
 
 position = Vector2( -12.495, 3.53415 )
 shape = SubResource( 4 )
 
-[node name="raycast_left" type="RayCast2D" parent="."]
+[node name="raycast_left" type="RayCast2D" parent="." index="6"]
 
 position = Vector2( -33.2868, -9.34363 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 45 )
 collision_mask = 1
-type_mask = 15
 
-[node name="raycast_right" type="RayCast2D" parent="."]
+[node name="raycast_right" type="RayCast2D" parent="." index="7"]
 
 position = Vector2( 29.1987, -9.34363 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 45 )
 collision_mask = 1
-type_mask = 15
 
-[node name="Particles2D" type="Particles2D" parent="."]
+[node name="Particles2D" type="Particles2D" parent="." index="8"]
 
 modulate = Color( 1, 1, 1, 0.685843 )
 emitting = false
@@ -259,20 +263,22 @@ normal_map = null
 h_frames = 1
 v_frames = 1
 
-[node name="sound_hit" type="AudioStreamPlayer2D" parent="."]
+[node name="sound_hit" type="AudioStreamPlayer2D" parent="." index="9"]
 
 stream = ExtResource( 4 )
 volume_db = 0.0
+pitch_scale = 1.0
 autoplay = false
 max_distance = 2000.0
 attenuation = 1.0
 bus = "Master"
 area_mask = 1
 
-[node name="sound_explode" type="AudioStreamPlayer2D" parent="."]
+[node name="sound_explode" type="AudioStreamPlayer2D" parent="." index="10"]
 
 stream = ExtResource( 5 )
 volume_db = 0.0
+pitch_scale = 1.0
 autoplay = false
 max_distance = 2000.0
 attenuation = 1.0
