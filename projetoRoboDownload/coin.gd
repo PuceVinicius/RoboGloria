@@ -9,7 +9,6 @@ func _on_body_enter( body ):
 		taken = true
 		if not body.getHasMola():
 			body.setHasMola(true)
-			get_node("../../UI/molaUI2/molaAnim").play("activate")
 
 func _on_coin_area_enter(area):
 	pass # replace with function body

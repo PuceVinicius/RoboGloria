@@ -24,6 +24,10 @@ extends RigidBody2D
 # -Friction cant be used, so floor velocity must be considered
 #  for moving platforms.
 
+
+onready var iconeMola = ($camera/UI/UIContainer/HBoxContainer/MolaContainer/MolaPatch/MolaSprite)
+onready var iconeLaser = ($camera/UI/UIContainer/HBoxContainer/LaserContainer/LaserPatch/LaserSprite)
+
 # Member variables
 var anim = ""
 var siding_left = false
@@ -54,6 +58,7 @@ onready var enemy = load("res://enemy.tscn")
 
 func setHasMola(hasMola):
 	has_mola = hasMola
+	iconeMola.activateMola()
 
 func getHasMola():
 	return has_mola
