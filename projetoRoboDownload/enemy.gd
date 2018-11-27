@@ -12,7 +12,7 @@ var anim = ""
 onready var rc_left = $raycast_left
 onready var rc_right = $raycast_right
 
-var WALK_SPEED = 50
+var WALK_SPEED = 0
 
 var bullet_class = preload("res://bullet.gd")
 
@@ -24,8 +24,6 @@ func _die():
 func _pre_explode():
 	#make sure nothing collides against this
 	$shape1.queue_free()
-	$shape2.queue_free()
-	$shape3.queue_free()
 	
 	# Stay there
 	mode = MODE_STATIC
@@ -35,6 +33,7 @@ func _pre_explode():
 func _integrate_forces(s):
 	var lv = s.get_linear_velocity()
 	var new_anim = anim
+	mode = MODE_KINEMATIC
 
 	if state == STATE_DYING:
 		new_anim = "explode"
@@ -49,7 +48,6 @@ func _integrate_forces(s):
 			
 			if cc:
 				if cc is bullet_class and not cc.disabled:
-					mode = MODE_RIGID
 					state = STATE_DYING
 					#lv = s.get_contact_local_normal(i) * 400
 					s.set_angular_velocity(sign(dp.x) * 33.0)
@@ -57,26 +55,8 @@ func _integrate_forces(s):
 					cc.disable()
 					$sound_hit.play()
 					break
-			
-			if dp.x > 0.9:
-				wall_side = 1.0
-			elif dp.x < -0.9:
-				wall_side = -1.0
 		
-		if wall_side != 0 and wall_side != direction:
-			direction = -direction
-			$sprite.scale.x = -direction
-		if direction < 0 and not rc_left.is_colliding() and rc_right.is_colliding():
-			direction = -direction
-			$sprite.scale.x = -direction
-		elif direction > 0 and not rc_right.is_colliding() and rc_left.is_colliding():
-			direction = -direction
-			$sprite.scale.x = -direction
-		
-		lv.x = direction * WALK_SPEED
 	
 	if anim != new_anim:
 		anim = new_anim
 		$anim.play(anim)
-	
-	s.set_linear_velocity(lv)

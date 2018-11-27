@@ -242,7 +242,7 @@ tracks/0/keys = {
 "values": [ 10, 11, 12, 13, 14, 5 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=14]
 
 resource_name = "activate"
 length = 1.0
@@ -261,7 +261,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.117647 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=15]
 
 resource_name = "spawn"
 length = 1.0
@@ -299,14 +299,14 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.117647 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=17]
 
 resource_name = "spawn"
 length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="RayShape2D" id=14]
+[sub_resource type="RayShape2D" id=18]
 
 custom_solver_bias = 0.5
 length = 20.0
@@ -386,6 +386,7 @@ blend_times = [  ]
 
 [node name="camera" type="Camera2D" parent="." index="2"]
 
+editor/display_folded = true
 anchor_mode = 1
 rotating = false
 current = true
@@ -512,8 +513,8 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/activate = SubResource( 15 )
-anims/spawn = SubResource( 17 )
+anims/activate = SubResource( 14 )
+anims/spawn = SubResource( 15 )
 blend_times = [  ]
 
 [node name="LaserContainer" type="MarginContainer" parent="camera/UI/UIContainer/HBoxContainer" index="1"]
@@ -580,7 +581,7 @@ playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/activate = SubResource( 16 )
-anims/spawn = SubResource( 18 )
+anims/spawn = SubResource( 17 )
 blend_times = [  ]
 _sections_unfolded = [ "Pause", "Playback Options" ]
 
@@ -592,7 +593,7 @@ position = Vector2( 31.2428, 4.08784 )
 
 position = Vector2( 0.291992, -12.1587 )
 scale = Vector2( 1, 1.76469 )
-shape = SubResource( 14 )
+shape = SubResource( 18 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="5"]
 
