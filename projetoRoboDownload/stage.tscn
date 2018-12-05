@@ -1,14 +1,112 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://coin.tscn" type="PackedScene" id=2]
-[ext_resource path="res://coin.png" type="Texture" id=3]
-[ext_resource path="res://moving_platform.tscn" type="PackedScene" id=4]
-[ext_resource path="res://seesaw.tscn" type="PackedScene" id=5]
-[ext_resource path="res://one_way_platform.tscn" type="PackedScene" id=6]
-[ext_resource path="res://player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://parallax_bg.tscn" type="PackedScene" id=8]
-[ext_resource path="res://enemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://missileSprite.png" type="Texture" id=3]
+[ext_resource path="res://coin.png" type="Texture" id=4]
+[ext_resource path="res://moving_platform.tscn" type="PackedScene" id=5]
+[ext_resource path="res://seesaw.tscn" type="PackedScene" id=6]
+[ext_resource path="res://one_way_platform.tscn" type="PackedScene" id=7]
+[ext_resource path="res://player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://parallax_bg.tscn" type="PackedScene" id=9]
+[ext_resource path="res://enemy.tscn" type="PackedScene" id=10]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Area2D
+
+# Member variables
+var taken = false
+
+func _on_body_enter( body ):
+	if not taken and body is preload(\"res://player.gd\"):
+		$anim.play(\"taken\")
+		taken = true
+		if not body.getHasMola():
+			body.setHasMola(true)
+
+func _on_coin_area_enter(area):
+	pass # replace with function body
+
+
+func _on_coin_area_enter_shape(area_id, area, area_shape, area_shape):
+	pass # replace with function body
+"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Area2D
+
+# Member variables
+var taken = false
+
+func _on_body_enter( body ):
+	if not taken and body is preload(\"res://player.gd\"):
+		$anim.play(\"taken\")
+		taken = true
+		if not body.getHasMissil():
+			body.setHasMissil(true)"
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "spin"
+length = 1.5
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+
+length = 1.0
+loop = false
+step = 0.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("particles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("sprite:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.01, 0.48 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="stage" type="Node"]
 
@@ -35,14 +133,27 @@ tile_data = PoolIntArray( 0, 2, 0, 70, 536870914, 0, 71, 10, 0, 72, 10, 0, 73, 1
 
 [node name="coins" type="Node" parent="." index="1"]
 
-editor/display_folded = true
-
 [node name="mola" parent="coins" index="0" instance=ExtResource( 2 )]
 
-editor/display_folded = true
 position = Vector2( 749.861, 882.588 )
+script = SubResource( 1 )
 
-[node name="coin 31 7 6" parent="coins" index="1" instance=ExtResource( 2 )]
+[node name="missil" parent="coins" index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 719.408, 1229.96 )
+script = SubResource( 2 )
+
+[node name="sprite" parent="coins/missil" index="0"]
+
+rotation = -0.483201
+texture = ExtResource( 3 )
+
+[node name="anim" parent="coins/missil" index="1"]
+
+anims/spin = SubResource( 3 )
+anims/taken = SubResource( 4 )
+
+[node name="coin 31 7 6" parent="coins" index="2" instance=ExtResource( 2 )]
 
 editor/display_folded = true
 position = Vector2( 1709.71, 345.18 )
@@ -51,7 +162,7 @@ scale = Vector2( 4.90024, 4.32317 )
 [node name="sprite" parent="coins/coin 31 7 6" index="0"]
 
 self_modulate = Color( 1, 1, 1, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 hframes = 4
 _sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility", "Z Index" ]
 
@@ -61,39 +172,37 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="props" type="Node" parent="." index="2"]
 
-editor/display_folded = true
-
-[node name="moving_platform" parent="props" index="0" instance=ExtResource( 4 )]
+[node name="moving_platform" parent="props" index="0" instance=ExtResource( 5 )]
 
 position = Vector2( 1451.86, 742.969 )
 motion = Vector2( 0, 140 )
 cycle = 5.0
 
-[node name="moving_platform 2" parent="props" index="1" instance=ExtResource( 4 )]
+[node name="moving_platform 2" parent="props" index="1" instance=ExtResource( 5 )]
 
 position = Vector2( 624.824, 545.544 )
 motion = Vector2( 300, 0 )
 cycle = 10.0
 
-[node name="moving_platform 3" parent="props" index="2" instance=ExtResource( 4 )]
+[node name="moving_platform 3" parent="props" index="2" instance=ExtResource( 5 )]
 
 position = Vector2( 3581.65, 739.662 )
 motion = Vector2( 450, 0 )
 cycle = 10.0
 
-[node name="seesaw" parent="props" index="3" instance=ExtResource( 5 )]
+[node name="seesaw" parent="props" index="3" instance=ExtResource( 6 )]
 
 position = Vector2( 2402.79, 849.52 )
 
-[node name="one_way_platform" parent="props" index="4" instance=ExtResource( 6 )]
+[node name="one_way_platform" parent="props" index="4" instance=ExtResource( 7 )]
 
 position = Vector2( 927.698, 1120.81 )
 
-[node name="player" parent="." index="3" instance=ExtResource( 7 )]
+[node name="player" parent="." index="3" instance=ExtResource( 8 )]
 
 position = Vector2( 251.684, 1045.6 )
 
-[node name="parallax_bg" parent="." index="4" instance=ExtResource( 8 )]
+[node name="parallax_bg" parent="." index="4" instance=ExtResource( 9 )]
 
 _sections_unfolded = [ "Scroll" ]
 
@@ -121,20 +230,22 @@ max_lines_visible = -1
 
 [node name="breakable_walls" type="Node" parent="." index="6"]
 
-[node name="wall_1" parent="breakable_walls" index="0" instance=ExtResource( 9 )]
+[node name="wall_1" parent="breakable_walls" index="0" instance=ExtResource( 10 )]
 
 position = Vector2( 1387.97, 1005.98 )
 scale = Vector2( 1, 1.02364 )
 
-[node name="wall_2" parent="breakable_walls" index="1" instance=ExtResource( 9 )]
+[node name="wall_2" parent="breakable_walls" index="1" instance=ExtResource( 10 )]
 
 position = Vector2( 1622.99, 872.739 )
 scale = Vector2( 1, 1.02364 )
 
-[node name="wall_3" parent="breakable_walls" index="2" instance=ExtResource( 9 )]
+[node name="wall_3" parent="breakable_walls" index="2" instance=ExtResource( 10 )]
 
 position = Vector2( 1909.84, 1322.44 )
 scale = Vector2( 1, 1.02364 )
 
 
+[editable path="coins/mola"]
+[editable path="coins/missil"]
 [editable path="coins/coin 31 7 6"]

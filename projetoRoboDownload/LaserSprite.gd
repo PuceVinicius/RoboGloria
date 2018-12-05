@@ -6,8 +6,8 @@ extends TextureRect
 
 
 func _ready():
-	pass
+	$Anim.play("spawn")
 
 
 func activateLaser():
-	pass
+	$Anim.play("activate")

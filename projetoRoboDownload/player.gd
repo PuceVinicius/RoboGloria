@@ -35,6 +35,7 @@ var jumping = false
 var stopping_jump = false
 var lasering = false
 var has_mola = false
+var has_laser = false
 
 var WALK_ACCEL = 800.0
 var WALK_DEACCEL = 800.0
@@ -63,6 +64,13 @@ func setHasMola(hasMola):
 func getHasMola():
 	return has_mola
 
+func setHasMissil(hasMissil):
+	has_laser = hasMissil
+	iconeLaser.activateLaser()
+
+func getHasMissil():
+	return has_laser
+
 func _integrate_forces(s):
 	var lv = s.get_linear_velocity()
 	var step = s.get_step()
@@ -88,7 +96,7 @@ func _integrate_forces(s):
 	lv.x -= floor_h_velocity
 	floor_h_velocity = 0.0
 	
-	if laser and not lasering:
+	if laser and not lasering and has_laser:
 		shoot_time = 0
 		var bi = bullet.instance()
 		var ss
@@ -104,7 +112,7 @@ func _integrate_forces(s):
 		bi.linear_velocity = Vector2(800.0 * ss, -80)
 		
 		$sprite/smoke.restart()
-		$sound_shoot.play()
+		$sound_missile.play()
 		
 		add_collision_exception_with(bi) # Make bullet and this not collide
 	else:

@@ -1,17 +1,19 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://robot_demo.png" type="Texture" id=2]
 [ext_resource path="res://bullet.png" type="Texture" id=3]
 [ext_resource path="res://springSprite.png" type="Texture" id=4]
 [ext_resource path="res://MolaSprite.gd" type="Script" id=5]
-[ext_resource path="res://osb_fire.png" type="Texture" id=6]
+[ext_resource path="res://missileSprite.png" type="Texture" id=6]
 [ext_resource path="res://LaserSprite.gd" type="Script" id=7]
 [ext_resource path="res://osb_left.png" type="Texture" id=8]
 [ext_resource path="res://osb_right.png" type="Texture" id=9]
 [ext_resource path="res://osb_jump.png" type="Texture" id=10]
-[ext_resource path="res://sound_shoot.wav" type="AudioStream" id=11]
-[ext_resource path="res://sound_jump.wav" type="AudioStream" id=12]
+[ext_resource path="res://osb_fire.png" type="Texture" id=11]
+[ext_resource path="res://sound_shoot.wav" type="AudioStream" id=12]
+[ext_resource path="res://sound_jump.wav" type="AudioStream" id=13]
+[ext_resource path="res://sound_missile.wav" type="AudioStream" id=14]
 
 [sub_resource type="Gradient" id=1]
 
@@ -305,6 +307,18 @@ resource_name = "spawn"
 length = 1.0
 loop = false
 step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.117647 ) ]
+}
 
 [sub_resource type="RayShape2D" id=18]
 
@@ -339,7 +353,7 @@ editor/display_folded = true
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 16
-frame = 22
+frame = 25
 
 [node name="smoke" type="Particles2D" parent="sprite" index="0"]
 
@@ -386,7 +400,6 @@ blend_times = [  ]
 
 [node name="camera" type="Camera2D" parent="." index="2"]
 
-editor/display_folded = true
 anchor_mode = 1
 rotating = false
 current = true
@@ -553,12 +566,11 @@ _sections_unfolded = [ "Margin", "Rect" ]
 
 [node name="LaserSprite" type="TextureRect" parent="camera/UI/UIContainer/HBoxContainer/LaserContainer/LaserPatch" index="0"]
 
-modulate = Color( 1, 1, 1, 0.117647 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 60.0
+margin_left = 37.0
 margin_right = 100.0
 margin_bottom = 40.0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -655,7 +667,7 @@ visibility_mode = 1
 
 position = Vector2( 668.073, 262.788 )
 scale = Vector2( 1.49157, 1.46265 )
-normal = ExtResource( 6 )
+normal = ExtResource( 11 )
 pressed = null
 bitmask = null
 shape = null
@@ -667,7 +679,7 @@ visibility_mode = 1
 
 [node name="sound_shoot" type="AudioStreamPlayer2D" parent="." index="7"]
 
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = false
@@ -678,7 +690,7 @@ area_mask = 1
 
 [node name="sound_jump" type="AudioStreamPlayer2D" parent="." index="8"]
 
-stream = ExtResource( 12 )
+stream = ExtResource( 13 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = false
@@ -686,5 +698,14 @@ max_distance = 2000.0
 attenuation = 1.0
 bus = "Master"
 area_mask = 1
+
+[node name="sound_missile" type="AudioStreamPlayer" parent="." index="9"]
+
+stream = ExtResource( 14 )
+volume_db = -24.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 1
+bus = "Master"
 
 

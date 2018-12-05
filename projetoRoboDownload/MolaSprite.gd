@@ -2,7 +2,6 @@ extends TextureRect
 
 func _ready():
 	$Anim.play("spawn")
-	pass
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
