@@ -106,7 +106,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 16.3009, 10.4057 )
 
 [sub_resource type="Gradient" id=5]
 
@@ -216,6 +216,7 @@ _sections_unfolded = [ "Animation" ]
 position = Vector2( 0.59258, 3.03972 )
 scale = Vector2( 2.16967, 7.75067 )
 shape = SubResource( 4 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Particles2D" type="Particles2D" parent="." index="4"]
 
