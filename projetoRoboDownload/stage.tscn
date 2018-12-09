@@ -543,7 +543,7 @@ max_lines_visible = -1
 
 [node name="player" parent="." index="3" instance=ExtResource( 10 )]
 
-position = Vector2( 1256.76, 3127.98 )
+position = Vector2( 130, 1050 )
 _sections_unfolded = [ "Linear" ]
 
 [node name="parallax_bg" parent="." index="4" instance=ExtResource( 11 )]

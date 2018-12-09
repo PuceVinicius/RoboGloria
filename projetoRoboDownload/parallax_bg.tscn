@@ -7,7 +7,7 @@
 [ext_resource path="res://scroll_bg_fg_2.png" type="Texture" id=5]
 [ext_resource path="res://scroll_bg_fg_1.png" type="Texture" id=6]
 
-[node name="parallax_bg" type="ParallaxBackground"]
+[node name="parallax_bg" type="ParallaxBackground" index="0"]
 
 layer = -1
 offset = Vector2( 0, 0 )
@@ -88,6 +88,11 @@ texture = ExtResource( 5 )
 centered = false
 region_rect = Rect2( 0, 0, 800, 256 )
 
+[node name="scroll_bg_fg_2" type="Sprite" parent="mount_ 2/Sprite" index="0"]
+
+position = Vector2( 560, 125 )
+texture = ExtResource( 5 )
+
 [node name="mount_1" type="ParallaxLayer" parent="." index="3"]
 
 motion_scale = Vector2( 0.4, 1 )
@@ -96,7 +101,7 @@ motion_mirroring = Vector2( 800, 0 )
 
 [node name="Sprite" type="Sprite" parent="mount_1" index="0"]
 
-position = Vector2( 0, 225 )
+position = Vector2( 0, -50 )
 texture = ExtResource( 6 )
 centered = false
 region_rect = Rect2( 0, 0, 800, 256 )
