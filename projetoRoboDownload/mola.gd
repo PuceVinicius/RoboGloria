@@ -7,5 +7,5 @@ func _on_body_enter( body ):
 	if not taken and body is preload("res://player.gd"):
 		$anim.play("taken")
 		taken = true
-		if not body.getHasMissil():
-			body.setHasMissil(true)
+		if not body.getHasMola():
+			body.setHasMola(true)

@@ -36,6 +36,7 @@ var stopping_jump = false
 var lasering = false
 var has_mola = false
 var has_laser = false
+var has_planta = false
 
 var WALK_ACCEL = 800.0
 var WALK_DEACCEL = 800.0
@@ -60,13 +61,22 @@ onready var enemy = load("res://enemy.tscn")
 func setHasMola(hasMola):
 	has_mola = hasMola
 	iconeMola.activateMola()
+	$mola_pickup.play()
 
 func getHasMola():
 	return has_mola
 
+func setHasPlanta(hasPlanta):
+	has_planta = hasPlanta
+
+func getHasPlanta():
+	return has_planta
+
+
 func setHasMissil(hasMissil):
 	has_laser = hasMissil
 	iconeLaser.activateLaser()
+	$missile_pickup.play()
 
 func getHasMissil():
 	return has_laser
