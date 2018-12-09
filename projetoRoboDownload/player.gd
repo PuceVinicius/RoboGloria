@@ -38,7 +38,7 @@ var has_mola = false
 var has_laser = false
 var has_planta = false
 
-var WALK_ACCEL = 800.0
+var WALK_ACCEL = 900.0
 var WALK_DEACCEL = 800.0
 var WALK_MAX_VELOCITY = 200.0
 var AIR_ACCEL = 200.0
