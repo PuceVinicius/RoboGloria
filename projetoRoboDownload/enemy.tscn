@@ -4,7 +4,7 @@
 [ext_resource path="res://breakable_wall2.png" type="Texture" id=2]
 [ext_resource path="res://bullet.png" type="Texture" id=3]
 [ext_resource path="res://sound_hit.wav" type="AudioStream" id=4]
-[ext_resource path="res://sound_explode.wav" type="AudioStream" id=5]
+[ext_resource path="res://sound_explosion.wav" type="AudioStream" id=5]
 
 [sub_resource type="Animation" id=1]
 
@@ -158,7 +158,7 @@ anim_offset = 0.0
 anim_offset_random = 0.0
 anim_loop = false
 
-[node name="enemy" type="RigidBody2D"]
+[node name="enemy" type="RigidBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1

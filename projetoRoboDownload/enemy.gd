@@ -53,7 +53,7 @@ func _integrate_forces(s):
 					s.set_angular_velocity(sign(dp.x) * 33.0)
 					set_friction(1)
 					cc.disable()
-					$sound_hit.play()
+					#$sound_hit.play()
 					break
 		
 	

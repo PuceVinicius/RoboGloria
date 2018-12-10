@@ -10,9 +10,9 @@ config_version=3
 
 [application]
 
-config/name="Dynamic Character Control-Based Platformer"
+config/name="Robo Glória"
 run/main_scene="res://stage.tscn"
-config/icon="res://icon.png"
+config/icon="res://spriteFlower.png"
 
 [display]
 

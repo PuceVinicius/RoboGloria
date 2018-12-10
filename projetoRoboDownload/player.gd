@@ -40,7 +40,7 @@ var has_planta = false
 
 var WALK_ACCEL = 900.0
 var WALK_DEACCEL = 800.0
-var WALK_MAX_VELOCITY = 200.0
+var WALK_MAX_VELOCITY = 250.0
 var AIR_ACCEL = 200.0
 var AIR_DEACCEL = 200.0
 var JUMP_VELOCITY = 460
@@ -80,6 +80,10 @@ func setHasMissil(hasMissil):
 
 func getHasMissil():
 	return has_laser
+	
+
+func _ready():
+	$bgm.play()
 
 func _integrate_forces(s):
 	var lv = s.get_linear_velocity()
